@@ -1,0 +1,19 @@
+services:
+  myagendaapi:
+    build:
+      context: ./MyAgendaAPI
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8181"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  vue-app:
+    build:
+      context: ./agenda-fe
+      dockerfile: Dockerfile
+    ports:
+      - "8080:3000"
+    depends_on:
+      - myagendaapi
+    command: npm run serve
